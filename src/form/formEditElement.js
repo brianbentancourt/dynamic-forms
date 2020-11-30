@@ -56,7 +56,7 @@ const BootstrapInput = withStyles((theme) => ({
       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
     },
   },
-}))(InputBase);
+}))(InputBase)
 
 
 const useStyles = makeStyles({
@@ -160,7 +160,7 @@ function FormEditElement(props) {
                     <FormBuilderOptions formElementValues={element.formElementValues} type={element.elementId} onDragEnd={onDragEnd} />
                   </Grid>
                   <Grid>
-                    <TextField id="inputName" label="Nombre" placeholder="Ingrese nombre" ref={textInput} onKeyPress={handleKeyPress} variant="outlined" size="small" />
+                    <TextField id="inputName" label="Opción" placeholder="Ingrese descripcion" ref={textInput} onKeyPress={handleKeyPress} variant="outlined" size="small" />
                   </Grid>
                 </React.Fragment>
                 : null}

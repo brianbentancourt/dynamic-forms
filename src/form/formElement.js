@@ -1,9 +1,55 @@
 import React from 'react'
 import map from 'lodash/map'
 import get from 'lodash/get'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import {
-  TextField
+  TextField,
+  Typography,
+  FormControlLabel,
+  Radio,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Checkbox,
+  InputBase,
+  InputLabel,
+  NativeSelect
 } from '@material-ui/core'
+
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase)
 
 export const RadioOption = ({ item, currentValue, handleChange, readOnly }) => {
   return (
@@ -22,9 +68,9 @@ function getOptionList(formElementValues) {
     return (
       <option key={item.elementvalueId} value={item.elementvalueId}>{item.displayName}</option>
     )
-  }) : null;
+  }) : null
 
-  return list;
+  return list
 }
 
 export const SimpleSelectElement = (props) => {
@@ -33,54 +79,27 @@ export const SimpleSelectElement = (props) => {
   const { formElementValues } = element;
 
   return (
-    <div className="form-group">
-      <label htmlFor={element.elementId}>{element.displayName}</label>
-      <select className="form-control" id={element.elementId} value={get(valueMap, element.elementId)} disabled={element.readOnly} onChange={handleChange}>
+    <FormControl >
+      <InputLabel htmlFor={element.elementId}>{element.displayName}</InputLabel>
+      <NativeSelect
+        id={element.elementId}
+        disabled={element.readOnly}
+        value={get(valueMap, element.elementId)}
+        onChange={handleChange}
+        input={<BootstrapInput />}
+      >
         {getOptionList(formElementValues)}
-      </select>
-    </div>
+      </NativeSelect>
+    </FormControl>
   )
 }
 
 export const PasswordElement = (props) => {
   const { valueMap, element, handleChange } = props;
   return (
-    <div className="form-group">
-      <label htmlFor={element.elementId}>{element.displayName}</label>
-      <input type="password" className="form-control" id={element.elementId} defaultValue={get(valueMap, element.elementId)} placeholder="Password" onChange={handleChange} disabled={element.readOnly} />
-    </div>
-  )
-}
-
-export const CheckboxElement = (props) => {
-  const { valueMap, element, handleChange } = props;
-
-  return (
-    <div className="form-check">
-      <label className="form-check-label">
-        <input type="checkbox" defaultChecked={get(valueMap, element.elementId)} onChange={handleChange} disabled={element.readOnly} className="form-check-input" /> <span>{element.displayName}</span>
-      </label>
-    </div>
-  )
-}
-
-export const PrintElement = (props) => {
-  const { element } = props;
-  return (
-    <div className="form-group">
-      <label htmlFor="formControlRange">{element.displayName}</label>
-    </div>
-  )
-}
-
-
-
-export const TextElement = (props) => {
-
-  const { valueMap, element, handleChange } = props
-
-  return (
     <TextField
+      type="password"
+      placeholder={element.placeholder}
       onChange={handleChange}
       error={element.displayError}
       name={element.elementId}
@@ -95,15 +114,69 @@ export const TextElement = (props) => {
   )
 }
 
-export const TextAreaElement = (props) => {
-
-  const { valueMap, element, handleChange } = props;
+export const CheckboxElement = (props) => {
+  const { valueMap, element, handleChange } = props
 
   return (
-    <div className="form-group">
-      <label htmlFor={element.elementId}>{element.displayName}</label>
-      <textarea className="form-control" id={element.elementId} defaultValue={get(valueMap, element.elementId)} disabled={element.readOnly} onChange={handleChange} rows="3"></textarea>
-    </div>
+    <FormControlLabel
+      disabled={element.readOnly}
+      control={
+        <Checkbox
+          checked={get(valueMap, element.elementId)}
+          onChange={handleChange}
+          name={element.elementId}
+        />
+      }
+      label={element.displayName}
+    />
+  )
+}
+
+export const LabelElement = (props) => {
+  const { element } = props;
+  return (
+    <Typography >{element.displayName}</Typography>
+  )
+}
+
+
+
+export const TextElement = (props) => {
+
+  const { valueMap, element, handleChange } = props
+
+  return (
+    <TextField
+      onChange={handleChange}
+      error={element.displayError}
+      name={element.elementId}
+      placeholder={element.placeholder}
+      id={element.elementId}
+      label={element.displayName}
+      defaultValue={get(valueMap, element.elementId)}
+      helperText={element.displayError}
+      variant="outlined"
+      disabled={element.readOnly}
+      size="small"
+    />
+  )
+}
+
+export const TextAreaElement = (props) => {
+
+  const { valueMap, element, handleChange } = props
+
+  return (
+    <TextField
+      id={element.elementId}
+      label={element.displayName}
+      disabled={element.readOnly}
+      multiline
+      rows={3}
+      onChange={handleChange}
+      defaultValue={get(valueMap, element.elementId)}
+      variant="outlined"
+    />
   )
 }
 
@@ -113,16 +186,15 @@ export const RadioElement = (props) => {
   const { valueMap, element, handleChange } = props;
   const { formElementValues } = element;
   const currentValue = get(valueMap, element.elementId);
-  const list = formElementValues && formElementValues.length ? map(formElementValues, (item) => <RadioOption key={item.elementvalueId} item={item} currentValue={currentValue} handleChange={handleChange} readOnly={element.readOnly} />) : null;
+  const list = formElementValues && formElementValues.length ? map(formElementValues, (item) => <FormControlLabel key={item.elementvalueId} value={item.elementvalueId} control={<Radio />} label={item.displayName} disabled={element.readOnly} />) : null;
+
 
   return (
-    <fieldset className="form-group">
-      <div className="row">
-        <legend className="col-form-label col-sm-2 pt-0">{element.displayName}</legend>
-        <div className="col-sm-10">
-          {list}
-        </div>
-      </div>
-    </fieldset>
+    <FormControl component="fieldset">
+      <FormLabel component="legend">{element.displayName}</FormLabel>
+      <RadioGroup aria-label="radio" name="radio" value={currentValue} onChange={handleChange} >
+        {list}
+      </RadioGroup>
+    </FormControl>
   )
 }
