@@ -53,7 +53,11 @@ function FormItems({ items, onRemElement, onChangeValue, onDragEnd, editMode, on
 }
 
 function Form(props) {
+<<<<<<< HEAD
   const { onDragEnd, items, onRemElement, onChangeValue, editMode, onToggle, onAddOption } = props
+=======
+  const { onDragEnd, items, onRemElement, onChangeValue, editMode, onToggle, onAddOption } = props;
+>>>>>>> 0a869deee7ff2ecd944587b1c325d7170522e3c4
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
