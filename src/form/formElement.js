@@ -75,8 +75,8 @@ function getOptionList(formElementValues) {
 
 export const SimpleSelectElement = (props) => {
 
-  const { valueMap, element, handleChange } = props;
-  const { formElementValues } = element;
+  const { valueMap, element, handleChange } = props
+  const { formElementValues } = element
 
   return (
     <FormControl >
@@ -95,7 +95,7 @@ export const SimpleSelectElement = (props) => {
 }
 
 export const PasswordElement = (props) => {
-  const { valueMap, element, handleChange } = props;
+  const { valueMap, element, handleChange } = props
   return (
     <TextField
       type="password"
@@ -133,7 +133,7 @@ export const CheckboxElement = (props) => {
 }
 
 export const LabelElement = (props) => {
-  const { element } = props;
+  const { element } = props
   return (
     <Typography >{element.displayName}</Typography>
   )
@@ -183,9 +183,9 @@ export const TextAreaElement = (props) => {
 
 export const RadioElement = (props) => {
 
-  const { valueMap, element, handleChange } = props;
+  const { valueMap, element, handleChange } = props
   const { formElementValues } = element;
-  const currentValue = get(valueMap, element.elementId);
+  const currentValue = get(valueMap, element.elementId)
   const list = formElementValues && formElementValues.length ? map(formElementValues, (item) => <FormControlLabel key={item.elementvalueId} value={item.elementvalueId} control={<Radio />} label={item.displayName} disabled={element.readOnly} />) : null;
 
 

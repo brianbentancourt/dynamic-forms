@@ -4,7 +4,6 @@ import { getItemStyle } from "../../utils/formUtils"
 
 export function DraggableItem(props) {
   const { draggableId, index } = props
-
   return (
     <Draggable draggableId={draggableId} index={index}>
       {(provided, snapshot) => (

@@ -113,7 +113,7 @@ function FormEditElement(props) {
         >
           <Grid>
             <Typography variant="h6" component="h3">
-              Componente
+              {element.type}
             </Typography>
           </Grid>
           <Grid>
@@ -137,11 +137,11 @@ function FormEditElement(props) {
               style={{ marginTop: 10 }}
             >
               <Grid>
-                <TextField id="inputName" label="Nombre" placeholder="Ingrese nombre" value={element.displayName} onChange={(e) => onChangeDisplayName(e.target.value)} variant="outlined" size="small" />
+                <TextField id="inputName" label="Name" placeholder="Input name" value={element.displayName} onChange={(e) => onChangeDisplayName(e.target.value)} variant="outlined" size="small" />
               </Grid>
               <Grid>
                 <FormControl className={classes.margin}>
-                  <InputLabel htmlFor="demo-customized-select-native">Tipo</InputLabel>
+                  <InputLabel htmlFor="demo-customized-select-native">Type</InputLabel>
                   <NativeSelect
                     id="inputType"
                     value={element.type}
