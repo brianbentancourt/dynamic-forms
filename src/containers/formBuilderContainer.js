@@ -1,16 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import {
     Grid,
 } from '@material-ui/core'
 import FormBuilder from '../components/formBuilder'
 import FormManagement from '../components/formManagement'
+import formBuilder from "../reducers/formBuilder"
+import reduce from 'lodash/fp/reduce'
+import map from 'lodash/fp/map'
+import form from '../templates/data'
+
+function init() {
+    const getElement = element => ({ ...element, readOnly: true })
+    const getEditMode = (result, element) => { result[element.elementId] = false; return result; }
+    return {
+      items: map(getElement)(form.formElements),
+      editMode: reduce(getEditMode, {})(form.formElements)
+    }
+  }
 
 export const FormBuilderContainer = () => {
-    const [form, setForm] = useState({})
+    const [state, dispatch] = useReducer(formBuilder, init())
+    const [showJson, setShowJson] = useState(true)
 
-   /*  useEffect(() => {
-        return setForm(jsonData)
-    }, []) */
+     useEffect(() => {
+         return console.log('loading')
+     }, []) 
 
 
 
@@ -19,10 +33,16 @@ export const FormBuilderContainer = () => {
         <Grid
             container
             direction="row"
-            justify="center"
-            alignItems="center"
+            justify="flex-start"
+            alignItems="flex-start"
         >
-            <FormBuilder  />
+            <Grid item md={6}>
+                <FormBuilder state={state} dispatch={dispatch} showJson={showJson} />
+            </Grid>
+            <Grid item md={6}>
+                <FormManagement form={state.items} showJson={showJson} />
+            </Grid>
+
         </Grid>
     )
 }
