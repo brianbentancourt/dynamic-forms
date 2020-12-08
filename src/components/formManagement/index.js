@@ -17,11 +17,7 @@ function ListElements(props) {
   return flow(orderBy('displayOrder', 'asc'), map((element) => {
     return (
       <Grid key={element.elementId} item xs={12} style={{ padding: '5px 0 5px 0' }}>
-<<<<<<< HEAD
         <FormElementComponent
-=======
-        <FormElementComponent 
->>>>>>> 0a869deee7ff2ecd944587b1c325d7170522e3c4
           formElements={formElements}
           element={element}
           setValue={setValue}
@@ -50,11 +46,7 @@ export default function FormManagement({ showJson, form }) {
     >
       <form>
         <Grid style={{ padding: 5 }}>
-<<<<<<< HEAD
           <ListElements formElements={form} valueMap={state.valueMap} setValue={setValue} />
-=======
-          <ListElements valueMap={state.items} setValue={setValue} />
->>>>>>> 0a869deee7ff2ecd944587b1c325d7170522e3c4
         </Grid>
         <Grid>
           <Button variant="contained" color="primary" className="btn btn-success" onClick={() => console.log('valueMap', state.valueMap)}>Send</Button>
@@ -62,11 +54,7 @@ export default function FormManagement({ showJson, form }) {
         {
           showJson &&
           <Grid>
-<<<<<<< HEAD
             <pre>{JSON.stringify(form, null, 2)}</pre>
-=======
-            <pre>{JSON.stringify(state.items, null, 2)}</pre>
->>>>>>> 0a869deee7ff2ecd944587b1c325d7170522e3c4
           </Grid>
         }
       </form>
